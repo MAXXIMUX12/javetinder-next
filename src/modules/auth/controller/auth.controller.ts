@@ -2,6 +2,8 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { RequestLogin } from '../dto/auth.dto.request';
 import { AuthService } from '../service/auth.service';
 import { RequestRegister } from '../dto/auth.dto.request';
+import { ResponseLogin } from '../dto/auth.response.dto';
+import { ResponseRegister } from '../dto/auth.response.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -9,14 +11,14 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     @Post("login")
-    postlogon(@Body() body: RequestLogin): string{
+    async postlogin(@Body() body: RequestLogin): Promise<ResponseLogin>{
         console.log(body)
-        return this.authService.login(body)
+        return await this.authService.login(body)
     }
 
     @Post("register")
-    postregiter(@Body() body: RequestRegister): string{
+    async postregiter(@Body() body: RequestRegister): Promise<ResponseRegister>{
         console.log(body)
-        return this.authService.register(body)
+        return await this.authService.register(body)
     }
 }
