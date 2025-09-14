@@ -1,18 +1,14 @@
 import { Injectable } from '@nestjs/common';
-
-let userData = [{
-    email: "isa@gmail.com",
-    password: "123"
-},
-{
-    email: "isa1@gmail.com",
-    password: "1234"
-},]
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { UsersEntity } from '../entity/user.entity';
 
 @Injectable()
 export class AuthRepository {
-    getEmail(email: string): any {
-        let response = userData.find((user) => user.email === email)
+    //query - ubicarse en la coleccion - db.users
+    constructor(@InjectModel("users") private readonly userModel: Model<UsersEntity>) {}
+    async getEmail(email: string): Promise<any> {
+        let response = await this.userModel.find({ email }).exec();
         return response;
     }
 }

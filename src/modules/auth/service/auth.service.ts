@@ -11,7 +11,7 @@ export class AuthService {
     constructor(private readonly authRepository: AuthRepository) {}
 
     async login(body: RequestLogin): Promise<ResponseLogin> {
-        const user = this.authRepository.getEmail(body.email);
+        const user = await this.authRepository.getEmail(body.email);
 
         if (user.password !== body.password) { throw new UnauthorizedException("Invalid password or email"); }
         let response = {
