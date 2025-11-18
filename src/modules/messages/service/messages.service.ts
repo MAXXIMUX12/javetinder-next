@@ -1,24 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { MessagesRepository } from '../repository/repository';
-import { CreateMessageDto } from '../dto/create-message.dto';
-import { Message } from '../entity/message.entity';
-import { randomUUID } from 'crypto';
+import { MessagesRepository } from '../repository/messges.repository';
+import { SendMessageRequest } from '../dto/mesages.request.dto';
 
 @Injectable()
 export class MessagesService {
-  constructor(private readonly repo: MessagesRepository) {}
+  constructor(private readonly messageRepository: MessagesRepository) {}
 
-  async create(dto: CreateMessageDto): Promise<Message> {
-    const newMessage: Message = {
-      _id: randomUUID(),
-      ...dto,
-      createdAt: new Date(),
-      isRead: false,
-    };
-    return this.repo.create(newMessage);
+  async sendMessage(body: SendMessageRequest) {
+    return this.messageRepository.create(body);
   }
 
-  async findByConversation(conversationId: string): Promise<Message[]> {
-    return this.repo.findByConversation(conversationId);
+  async getConversation(user1: string, user2:string)  {
+    return this.messageRepository.findConversation(user1, user2);
   }
+  
 }

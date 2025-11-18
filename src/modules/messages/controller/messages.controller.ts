@@ -1,18 +1,22 @@
-import { Controller,  Get, Post, Body, Param } from '@nestjs/common';
+import { Controller,  Get, Post, Body, Param, Query } from '@nestjs/common';
 import { MessagesService } from '../service/messages.service';
-import { CreateMessageDto } from '../dto/create-message.dto';
+import { SendMessageRequest } from '../dto/mesages.request.dto';
+import { MessageResponse } from '../dto/mesages.response.dto';
 
 @Controller('messages')
 export class MessagesController {
     constructor(private readonly messagesService: MessagesService) {}
 
     @Post()
-    create(@Body() dto: CreateMessageDto) {
-        return this.messagesService.create(dto);
+    async sendMessage(@Body() body: SendMessageRequest): Promise<any> {
+        return this.messagesService.sendMessage(body);
     }
 
-    @Get(':conversationId')
-    findByConversation(@Param('conversationId') conversationId: string) {
-        return this.messagesService.findByConversation(conversationId);
+    @Get()
+    async getConversation(
+        @Query('user1') user1: string,
+        @Query('user2') user2: string,
+    ) {
+        return this.messagesService.getConversation(user1, user2);
   }
 }

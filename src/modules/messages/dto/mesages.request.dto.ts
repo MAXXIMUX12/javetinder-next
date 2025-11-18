@@ -1,5 +1,4 @@
-export class CreateMessageDto {
-  conversationId: string;
+export class SendMessageRequest {
   senderId: string;
   receiverId: string;
   content: string;
