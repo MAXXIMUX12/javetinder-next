@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+
+}
+
+.logo .logojavetinder {
+    width: 15px;
+    height: auto;
+}
+
+.container.logo.title.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.title {
+    margin-top: 1.25rem;
+    color: #FF683E;
+    font-size: 1.75rem;
+    text-align: center;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0.625rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.875rem;
+    color: #787777;
+}
